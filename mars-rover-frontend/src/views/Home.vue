@@ -18,7 +18,7 @@ import { ref, onMounted, inject } from 'vue'
 import { roverService } from '@/services/rover.service'
 import { useSelectedRover } from '@/composables/UseSelectedRover'
 import { Rover } from '@/Models/rover.model'
-import { useToast } from '@/composables/useToast'
+import { useToast } from '@/composables/UseToast'
 
 import RoverForm from '@/components/RoverForm.vue'
 import RoverEdit from '@/components/RoverEdit.vue'

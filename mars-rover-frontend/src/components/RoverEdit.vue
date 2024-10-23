@@ -33,7 +33,7 @@ import { roverService } from '@/services/rover.service'
 import { Rover } from '@/Models/rover.model'
 
 import { useSelectedRover } from '@/composables/UseSelectedRover'
-import { useToast } from '@/composables/useToast'
+import { useToast } from '@/composables/UseToast'
 
 import Input from './Commom/Input.vue'
 import RoverResult from './RoverResult.vue'

@@ -53,7 +53,7 @@ import { AxiosError } from 'axios'
 
 import { roverService } from '@/services/rover.service'
 import { useSelectedRover } from '@/composables/UseSelectedRover'
-import { useToast } from '@/composables/useToast'
+import { useToast } from '@/composables/UseToast'
 import { Rover } from '@/Models/rover.model'
 
 import Input from '@/components/Commom/Input.vue'
