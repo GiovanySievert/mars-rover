@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "useDefineForClassFields": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "lib": ["ESNext", "DOM"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": ["vitest/globals", "vite/client"]
+  },
+  "include": ["src/**/*", "tests/**/*", "shims-vue.d.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

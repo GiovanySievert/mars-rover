@@ -1,0 +1,22 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mars_rover_db
+    ports:
+      - "5432:5432"
+  app:
+    build: .
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: "postgresql://user:password@postgres:5432/mars_rover_db?schema=public"
+    volumes:
+      - .:/app
+      - /app/node_modules

@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: ./mars-rover-backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./mars-rover-backend:/app
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://user:password@db:5432/mars_rover_db?schema=public"
+    command: >
+      sh -c "npx prisma migrate deploy && npm run start"
+
+
+  frontend:
+    build:
+      context: ./mars-rover-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./mars-rover-frontend:/app
+
+  db:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mars_rover_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
