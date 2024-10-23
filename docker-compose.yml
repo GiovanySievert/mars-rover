@@ -6,15 +6,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
-    volumes:
-      - ./mars-rover-backend:/app
     depends_on:
       - db
     environment:
       DATABASE_URL: "postgresql://user:password@db:5432/mars_rover_db?schema=public"
     command: >
-      sh -c "npx prisma migrate deploy && npm run start"
-
+      sh -c "npx prisma migrate dev --name rover && npm run start"
 
   frontend:
     build:
@@ -22,8 +19,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:80"
-    volumes:
-      - ./mars-rover-frontend:/app
 
   db:
     image: postgres:13-alpine
@@ -32,9 +27,14 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mars_rover_db
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "-d", "mars_rover_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   db_data:

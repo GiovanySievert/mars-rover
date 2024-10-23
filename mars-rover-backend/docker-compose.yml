@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   postgres:
     image: postgres
@@ -9,6 +9,14 @@ services:
       POSTGRES_DB: mars_rover_db
     ports:
       - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "-d", "mars_rover_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   app:
     build: .
     ports:
@@ -16,7 +24,10 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: "postgresql://user:password@postgres:5432/mars_rover_db?schema=public"
+      DATABASE_URL: "postgresql://user:password@db:5432/mars_rover_db?schema=public"
     volumes:
       - .:/app
       - /app/node_modules
+
+volumes:
+  db_data:

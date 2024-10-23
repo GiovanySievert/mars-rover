@@ -78,7 +78,6 @@ describe('Rover Edit E2E', () => {
   })
 
   it('should return an error when the rover moves to an occupied space', async () => {
-    // Cria outro rover para ocupar o espaço
     await prisma.rover.create({
       data: {
         x: 1,
